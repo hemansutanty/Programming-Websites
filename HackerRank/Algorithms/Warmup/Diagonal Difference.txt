@@ -1,0 +1,81 @@
+//**
+
+
+Problem Statement
+
+Given a square matrix of size N×N, calculate the absolute difference between the sums of its diagonals.
+
+Input Format
+
+The first line contains a single integer, N. The next N lines denote the matrix's rows, with each line containing N space-separated integers describing the columns.
+
+Output Format
+
+Print the absolute difference between the two sums of the matrix's diagonals as a single integer.
+
+Sample Input
+
+3
+11 2 4
+4 5 6
+10 8 -12
+Sample Output
+
+15
+Explanation
+
+The primary diagonal is: 
+11
+      5
+            -12
+
+Sum across the primary diagonal: 11 + 5 - 12 = 4
+
+The secondary diagonal is:
+            4
+      5
+10
+Sum across the secondary diagonal: 4 + 5 + 10 = 19 
+Difference: |4 - 19| = 15
+
+
+**//
+
+
+//Solution
+
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */ 
+    int n,i,j;
+    long int sum1 =0, sum2=0;
+    scanf("%d",&n);
+    int matrix[n][n];
+    for(i=0;i<n;i++)
+        {
+        for(j=0;j<n;j++)
+            {
+            scanf("%d",&matrix[i][j]);
+        }
+    }
+    for(i=0;i<n;i++)
+        {
+        sum1 = sum1+matrix[i][i];
+        sum2 = sum2+matrix[i][n-1-i];
+    }
+    if(sum1>sum2)
+        {
+        printf("%ld",sum1-sum2);
+    }
+    else
+        {
+        printf("%ld",sum2-sum1);
+    }
+    return 0;
+}
