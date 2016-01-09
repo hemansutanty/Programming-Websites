@@ -1,0 +1,105 @@
+//**
+
+Problem Statement
+
+Given an array A={a1,a2,…,aN} of N elements, find the maximum possible sum of a
+
+Contiguous subarray
+Non-contiguous (not necessarily contiguous) subarray.
+Empty subarrays/subsequences should not be considered.
+
+This Youtube video by Ben Wright might be useful to understand the Kadane algorithm for the maximum subarray in a 1-D sequence.
+
+
+Input Format
+
+First line of the input has an integer T. T cases follow. 
+Each test case begins with an integer N. In the next line, N integers follow representing the elements of array A.
+
+Constraints:
+
+1≤T≤10
+1≤N≤105
+−104≤ai≤104
+The subarray and subsequences you consider should have at least one element.
+
+Output Format
+
+Two, space separated, integers denoting the maximum contiguous and non-contiguous subarray. At least one integer should be selected and put into the subarrays (this may be required in cases where all elements are negative).
+
+Sample Input
+
+2 
+4 
+1 2 3 4
+6
+2 -1 2 3 4 -5
+Sample Output
+
+10 10
+10 11
+Explanation
+
+In the first case: 
+The max sum for both contiguous and non-contiguous elements is the sum of ALL the elements (as they are all positive).
+
+In the second case: 
+[2 -1 2 3 4] --> This forms the contiguous sub-array with the maximum sum. 
+For the max sum of a not-necessarily-contiguous group of elements, simply add all the positive elements.
+
+**//
+
+//Solution
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+long int max(long int a,long int b)
+{
+    return(a>b?a:b);    
+}
+long int max(long int a, long int b, long int c)
+{
+    return((a>b)?((a>c)?a:c):((b>c)?b:c));    
+}
+long int maxSumContigous(long int a[], long int size)
+{
+    long int currentMax = a[0],i,maxSoFar=a[0];
+    for(i=1;i<size;i++)
+    {
+        currentMax = max(a[i],currentMax+a[i]);
+        maxSoFar = max(currentMax,maxSoFar);
+    }
+    return maxSoFar;
+}
+long int maxSumNonContigous(long int a[], long int size)
+{
+    long int maxSum=a[0],i;
+    for(i=1;i<size;i++)
+    {
+        maxSum = max(maxSum,maxSum+a[i],a[i]);
+    }
+    return maxSum;
+}
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    long int t,n;
+    scanf("%ld",&t);
+    for(long int i=0;i<t;i++)
+    {
+        scanf("%ld",&n);
+        long int a[n];
+        for(long int j=0;j<n;j++)
+        {
+           scanf("%ld",&a[j]); 
+        }
+        long int maxContigousSum=maxSumContigous(a,n);
+        long int maxNonContigousSum=maxSumNonContigous(a,n);
+        printf("%ld %ld\n",maxContigousSum,maxNonContigousSum);
+    }
+    return 0;
+}
