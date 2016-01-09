@@ -1,0 +1,95 @@
+//**
+
+Problem Statement
+
+This challenge is part of a tutorial track by MyCodeSchool
+
+You’re given the pointer to the head nodes of two linked lists that merge together at some node. Find the node at which this merger happens. The two head nodes will be different and neither will be NULL.
+
+[List #1] a--->b--->c
+                     \
+                      x--->y--->z--->NULL
+                     /
+     [List #2] p--->q
+In the above figure, both list merges at node x.
+
+Input Format 
+You have to complete the int FindMergeNode(Node* headA, Node* headB) method which takes two arguments - the heads of the linked lists. You should NOT read any input from stdin/console.
+
+Output Format 
+Find the node at which both lists merge and return the data of that node. Do NOT print anything to stdout/console.
+
+Sample Input
+
+ 1
+  \
+   2--->3--->NULL
+  /
+ 1
+
+
+1--->2
+      \
+       3--->Null
+      /
+     1
+Sample Output
+
+2
+3
+Explanation 
+1. As shown in the Input, 2 is the merge point. 
+2. Similarly 3 is merging point
+
+**//
+
+
+//Solution
+
+/*
+   Find merge point of two linked lists
+   Node is defined as
+   struct Node
+   {
+       int data;
+       Node* next;
+   }
+*/
+int getCount(Node* head){
+    int length=0;
+    while(head!=NULL){
+        length++;
+        head=head->next;
+    }
+    return length;
+}
+int findIntersectionPoint(int diff,Node *headA, Node *headB){
+    for(int i=0;i<diff;i++){
+        headA=headA->next;
+    }
+    while(headA!=NULL && headB !=NULL){
+        if(headA==headB){
+            return headA->data;
+        }
+        headA=headA->next;
+        headB=headB->next;
+    }
+    return -1;
+}
+int FindMergeNode(Node *headA, Node *headB)
+{
+    // Complete this function
+    // Do not write the main method.
+    int length1,length2,diff=0,dataAtIntersectionPoint=-1;
+    length1=getCount(headA);
+    length2=getCount(headB);
+    if(length1>length2){
+        diff=length1-length2;
+        dataAtIntersectionPoint = findIntersectionPoint(diff,headA,headB);
+    }
+    else{
+        diff = length2-length1;
+        dataAtIntersectionPoint = findIntersectionPoint(diff,headB,headA);
+    }
+    return dataAtIntersectionPoint;
+}

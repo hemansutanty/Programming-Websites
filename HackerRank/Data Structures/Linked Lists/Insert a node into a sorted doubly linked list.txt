@@ -1,0 +1,76 @@
+//**
+
+Problem Statement
+
+This challenge is part of a tutorial track by MyCodeSchool
+
+You’re given the pointer to the head node of a sorted doubly linked list and an integer to insert into the list. Create a node and insert it into the appropriate position in the list. The head node might be NULL to indicate that the list is empty.
+
+Input Format 
+You have to complete the Node* SortedInsert(Node* head, int data) method which takes two arguments - the head of the sorted, doubly linked list and the value to insert. You should NOT read any input from stdin/console.
+
+Output Format 
+Create a node with the given data and insert it into the given list, making sure that the new list is also sorted. Then return the head node of the updated list. Do NOT print anything to stdout/console.
+
+Sample Input
+
+NULL , data = 2 
+NULL <-- 2 <--> 4 <--> 6 --> NULL , data = 5
+
+Sample Output
+
+NULL <-- 2 --> NULL
+NULL <-- 2 <--> 4 <--> 5 <--> 6 --> NULL
+Explanation 
+1. We have an empty list, 2 is inserted. 
+2. Data 5 is inserted such as list remains sorted.
+
+**//
+
+//Solution
+
+/*
+    Insert Node in a doubly sorted linked list 
+    After each insertion, the list should be sorted
+   Node is defined as
+   struct Node
+   {
+     int data;
+     Node *next;
+     Node *prev;
+   }
+*/
+Node* SortedInsert(Node *head,int data)
+{
+    // Complete this function
+   // Do not write the main method.
+    
+    Node * newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    
+    Node *current = head,*previous = NULL;
+    
+    if(head == NULL){
+        return newNode;
+    }
+    else if(head->data>data){
+        newNode->next = head;
+        head->prev = newNode;
+        return newNode;
+    }
+    else{
+        while(current!=NULL && current->data<data){
+            previous =  current;
+            current = current->next;
+        }
+        newNode->prev = previous;
+        newNode->next = current;
+        previous->next = newNode;
+        if(current!=NULL){
+            current->prev = newNode;
+        }
+    }
+    return head;
+}
