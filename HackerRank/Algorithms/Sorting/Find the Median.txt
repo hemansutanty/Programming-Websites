@@ -1,0 +1,84 @@
+//**
+
+Problem Statement
+
+In the Quicksort challenges, you sorted an entire array. Sometimes, you just need specific information about a list of numbers, and doing a full sort would be unnecessary. Can you figure out a way to use your partition code to find the median in an array?
+
+Challenge 
+Given a list of numbers, can you find the median?
+
+Input Format 
+There will be two lines of input:
+
+n - the size of the array
+ar - n numbers that makes up the array
+Output Format 
+Output one integer, the median.
+
+Constraints
+
+1≤n≤1000001
+n is odd
+−10000≤x≤10000,x∈ar
+Sample Input
+
+7
+0 1 2 4 6 5 3
+Sample Output
+
+3
+
+**//
+
+//Solution
+
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+void swap(long int *a, long int *b){
+    long int t=*a;
+    *a=*b;
+    *b=t;
+}
+long int partition(long int *ar,long int start,long int end){
+    long int pivot,pindex,i;
+    pivot=ar[end];pindex=start;
+    for(i=start;i<end;i++){
+        if(ar[i]<=pivot){
+            swap(&ar[i],&ar[pindex]);
+            pindex++;
+        }
+    }
+    swap(&ar[pindex],&ar[end]);
+    return pindex;
+}
+void quicksort(long int *ar,long int low,long int high){
+    long int pivot;
+    if(low<high){
+        pivot=partition(ar,low,high);
+        quicksort(ar,low,pivot-1);
+        quicksort(ar,pivot+1,high);
+        
+    }
+}
+
+int main() {
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    long int n,i;
+    scanf("%ld\n",&n);
+    long int ar[n];
+    for(i=0;i<n;i++){
+        scanf("%ld",&ar[i]);
+    }
+    quicksort(ar,0,n-1);
+    if(n%2==0){
+        printf("%ld",(ar[n/2]+ar[n/2+1])/2);
+    }
+    else{
+        printf("%ld",ar[n/2]);
+    }
+    return 0;
+}
