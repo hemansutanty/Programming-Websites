@@ -1,4 +1,4 @@
-/**
+/*
 
 Suppose a sorted array is rotated at some pivot unknown to you beforehand.
 
@@ -13,7 +13,7 @@ Output : 0
 
 NOTE : Think about the case when there are duplicates. Does your current solution work? How does the time complexity change?*
 
-**//
+*/
 
 
 

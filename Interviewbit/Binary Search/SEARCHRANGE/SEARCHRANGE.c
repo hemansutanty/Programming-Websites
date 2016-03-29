@@ -1,4 +1,4 @@
-/**
+/*
 
 Given a sorted array of integers, find the starting and ending position of a given target value.
 
@@ -14,7 +14,7 @@ and target value 8,
 
 return [3, 4].
 
-**//
+*/
 
 
 //Solution

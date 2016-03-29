@@ -1,5 +1,4 @@
-/**
-
+/*
 
 Write an efficient algorithm that searches for a value in an m x n matrix.
 
@@ -20,7 +19,7 @@ Given target = 3, return 1 ( 1 corresponds to true )
 
 Return 0 / 1 ( 0 if the element is not present, 1 if the element is present ) for this problem
 
-**//
+*/
 
 
 //Solution

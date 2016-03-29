@@ -1,4 +1,4 @@
-/**
+/*
 
 N number of books are given. 
 The ith book has Pi number of pages. 
@@ -28,7 +28,7 @@ There are 2 number of students. Books can be distributed in following fashion :
 
 Of the 3 cases, Option 3 has the minimum pages = 113.
 
-**//
+*/
 
 
 //Solution
