@@ -1,6 +1,4 @@
-//**
-
-
+/*
 
 Given a string s, partition s such that every string of the partition is a palindrome.
 
@@ -29,7 +27,7 @@ In the given example,
 ["a", "a", "b"] comes before ["aa", "b"] because len("a") < len("aa")
 
 
-**//
+*/
 
 
 //Solution

@@ -1,5 +1,4 @@
-/**
-
+/*
 Implement pow(A, B) % C.
 
 In other words, given A, B and C,
@@ -10,7 +9,7 @@ Return : 2
 2^3 % 3 = 8 % 3 = 2
 
 
-**/
+*/
 
 //Solution
 

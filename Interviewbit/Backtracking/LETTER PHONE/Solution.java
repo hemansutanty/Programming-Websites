@@ -1,4 +1,4 @@
-/**
+/*
 Given a digit string, return all possible letter combinations that the number could represent.
 
 A mapping of digit to letters (just like on the telephone buttons) is given below.
@@ -11,7 +11,7 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 
 Make sure the returned strings are lexicographically sorted.
 
-**//
+*/
 
 
 //Solution

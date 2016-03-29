@@ -1,4 +1,4 @@
-/**
+/*
 
 Reverse a linked list using recursion.
 
@@ -7,7 +7,7 @@ Given 1->2->3->4->5->NULL,
 
 return 5->4->3->2->1->NULL.
 
-**//
+*/
 
 
 // Solution
