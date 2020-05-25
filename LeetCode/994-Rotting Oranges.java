@@ -63,13 +63,14 @@ grid[i][j] is only 0, 1, or 2.
 //      -10
 //0-1    00   01
 //       10 
+
 class Solution {
     
-    public int orangesRotting(int[][] grid) {
+    public int orangesRotting(final int[][] grid) {
         if(grid==null || grid.length==0) return 0;
-        int rows = grid.length, columns = grid[0].length;
+        final int rows = grid.length, columns = grid[0].length;
         int freshOranges = 0;
-        Queue<int[]> queue = new LinkedList<>();
+        final Queue<int[]> queue = new LinkedList<>();
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
                 if(grid[i][j]==2){
@@ -81,15 +82,15 @@ class Solution {
         }
         if(freshOranges==0) return 0;
         int minutes = 0;
-        int[][] dirs = {{-1,0},{0,1},{1,0},{0,-1}};
+        final int[][] dirs = {{-1,0},{0,1},{1,0},{0,-1}};
         while(!queue.isEmpty()){
             minutes++;
-            int size = queue.size();
+            final int size = queue.size();
             for(int i=0;i<size;i++){
-                int[] point = queue.poll();
-                for(int[] dir: dirs ){
-                    int x = point[0]+dir[0];
-                    int y = point[1]+dir[1];
+                final int[] point = queue.poll();
+                for(final int[] dir: dirs ){
+                    final int x = point[0]+dir[0];
+                    final int y = point[1]+dir[1];
                     if(x<0||y<0||x>=rows||y>=columns||grid[x][y]==0||grid[x][y]==2) continue;
                     grid[x][y]=2;
                     queue.offer(new int[]{x,y});
