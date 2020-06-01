@@ -34,7 +34,6 @@ class Solution {
                     nums[mid] = temp;
                     high--;break;
             }
-            
         }
     }
 }
