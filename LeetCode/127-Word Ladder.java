@@ -1,6 +1,8 @@
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 /*abstractGiven two words (beginWord and endWord), and a dictionary's word list, find the length of shortest transformation sequence from beginWord to endWord, such that:
 
@@ -38,33 +40,38 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        if(!wordList.contains(endWord)) return 0;
+        Set<String> set = new HashSet<>();
+        for(String word: wordList){
+            set.add(word);
+        }
+        if(!set.contains(endWord)) return 0;
         
         Queue<String> queue = new LinkedList<>();
         int wordLength = beginWord.length();
         queue.offer(beginWord);
-        int level = 0;
+        int level = 1;
         while(!queue.isEmpty()){
-            level++;
             int queueSize = queue.size();
             for(int i = 0;i<queueSize;i++){
-                char[] word = queue.peek().toCharArray();queue.remove();
+                char[] word = queue.poll().toCharArray();
                 for(int pos = 0;pos<wordLength;pos++){
                     char originalCharacter = word[pos];
                     for(char c='a';c<='z';c++){
+                        if(word[pos]==c)continue;
                         word[pos]=c;
                         if(String.valueOf(word).equals(endWord)){
                             return level+1;
                         }
-                        if(!wordList.contains(String.valueOf(word))){
+                        if(!set.contains(String.valueOf(word))){
                             continue;
                         }
-                        wordList.remove(String.valueOf(word));
+                        set.remove(String.valueOf(word));
                         queue.add(String.valueOf(word));
                     }
                     word[pos]=originalCharacter;
                 }
             }
+            level++;
         }
         return 0;
     }
