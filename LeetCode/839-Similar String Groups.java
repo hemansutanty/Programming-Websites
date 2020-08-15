@@ -1,0 +1,67 @@
+import java.util.HashMap;
+import java.util.Map;
+
+/*
+Two strings X and Y are similar if we can swap two letters (in different positions) of X, so that it equals Y. Also two strings X and Y are similar if they are equal.
+
+For example, "tars" and "rats" are similar (swapping at positions 0 and 2), and "rats" and "arts" are similar, but "star" is not similar to "tars", "rats", or "arts".
+
+Together, these form two connected groups by similarity: {"tars", "rats", "arts"} and {"star"}.  Notice that "tars" and "arts" are in the same group even though they are not similar.  Formally, each group is such that a word is in the group if and only if it is similar to at least one other word in the group.
+
+We are given a list A of strings.  Every string in A is an anagram of every other string in A.  How many groups are there?
+
+ 
+
+Example 1:
+
+Input: A = ["tars","rats","arts","star"]
+Output: 2
+ 
+
+Constraints:
+
+1 <= A.length <= 2000
+1 <= A[i].length <= 1000
+A.length * A[i].length <= 20000
+All words in A consist of lowercase letters only.
+All words in A have the same length and are anagrams of each other.
+The judging time limit has been increased for this question.
+*/
+
+
+class Solution {
+    public int numSimilarGroups(String[] A) {
+        Map<String, Integer> stringIndex = new HashMap<>();
+        if(A==null || A.length==0) return 0;
+        boolean[] markedWords = new boolean[A.length];
+        int numberOfGroups = 0;
+        for(int i=0;i<A.length;i++){
+            if(stringIndex.containsKey(A[i]))markedWords[i]=true;
+            stringIndex.put(A[i], i);   
+        }
+        for(int i=0;i<A.length;i++){
+            if(markedWords[i]==false){
+                dfs(A,markedWords, i, stringIndex);
+                numberOfGroups++;
+            }
+        }
+        return numberOfGroups;
+    }
+    public void dfs(String[] A, boolean[] markedWords, int index, Map<String, Integer> map){
+        markedWords[index]=true;
+        for(int i=0;i<A.length;i++){
+            if(index!=i && !markedWords[i] && helper(A[i], A[index])){
+                markedWords[i]=true;
+                dfs(A, markedWords, i, map);
+            }
+        }
+    }
+    public boolean helper(String s, String t){
+        int res = 0, i = 0;
+        while(i<s.length()){
+            if(s.charAt(i)!=t.charAt(i))res++;
+            i++;
+        }
+        return res==2;
+    }
+}
