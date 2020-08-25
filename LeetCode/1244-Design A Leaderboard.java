@@ -45,7 +45,7 @@ There will be at most 1000 function calls.
 
 
 class Leaderboard {
-    Map<Integer, Integer> map;
+     Map<Integer, Integer> map;
      TreeMap<Integer, Integer> sorted;
      public Leaderboard() {
          map = new HashMap<>();
