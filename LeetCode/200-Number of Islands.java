@@ -26,40 +26,28 @@ Output: 3
 // 0-1  00  01
 // 1-1  10  11
 class Solution {
-    int[] rowSet = {0,-1,0,1};
-    int[] columnSet = {-1,0,1,0};
-    public int numIslands(char[][] grid) {
-        if(grid == null|| grid.length==0){
-            return 0;
+    int[][] d = {{0,1},{1,0},{0,-1},{-1,0}};
+    public void DFS(char[][] grid, boolean[][] visited, int i, int j, int rows, int columns){
+        if(i<0 || i>=rows || j<0 || j>=columns || visited[i][j] || grid[i][j]=='0'){
+            return;
         }
+        visited[i][j]=true;
+        for(int k=0;k<4;k++){
+            DFS(grid,visited,i+d[k][0],j+d[k][1],rows, columns);
+        }
+    }
+    public int numIslands(char[][] grid) {
+        int numberOfIslands = 0;
         int rows = grid.length, columns = grid[0].length;
         boolean[][] visited = new boolean[rows][columns];
-        int numberOFIslands = 0;
         for(int i=0;i<rows;i++){
-            for(int j=0;j<columns;j++){
+            for(int j =0;j< columns ;j++){
                 if(grid[i][j]=='1' && !visited[i][j]){
-                    DFSUtil(grid, visited, i, j);
-                    numberOFIslands++;
+                    numberOfIslands++;
+                    DFS(grid, visited, i, j, rows, columns);  
                 }
             }
         }
-        return numberOFIslands;
+        return numberOfIslands;
     }
-    public void DFSUtil(char[][]grid, boolean visited[][], int row, int column){
-        if(grid[row][column]=='1'){
-            visited[row][column] = true;
-        }
-        for(int i = 0;i<4;i++){
-            if(isSafe(grid, visited, row+rowSet[i], column+columnSet[i])){
-                DFSUtil(grid, visited, row+rowSet[i], column+columnSet[i]);
-            }
-        } 
-    }
-    public boolean isSafe(char[][]grid, boolean[][]visited, int row, int column){
-       return (row>=0) && (row<grid.length) &&
-           (column>=0) && (column<grid[0].length) &&
-           (grid[row][column]=='1') && (visited[row][column]==false);
-    }
-
-               
 }

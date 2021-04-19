@@ -23,6 +23,11 @@ cache.get(3);       // returns 3
 cache.get(4);       // returns 4
 */
 
+/*
+Usee combination of Double LinkedList with a HashMap
+Double Linkedlist functions: AddNode to Head, Remove Node, Pop Tail Node Move Node to Head -> Rmove Node and AddNode to Head
+*/
+
 import java.util.Hashtable;
 class LRUCache {
     class DLinkedNode{
