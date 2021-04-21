@@ -19,22 +19,45 @@ Output: 3
 Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 */
 
+
+
+/*
+
+Evolution from Recusrive to DP :
+recursive solution :
+
+
+public int numDecodings(String s) {
+        return s.length()==0?0:numDecodings(0,s);      
+    }
+    private int numDecodings(int p, String s) {
+        int n=s.length();
+        if(p==n) return 1;
+        if(s.charAt(p)=='0') return 0;
+        int res=numDecodings(p+1,s);
+        if(p<n-1&&(s.charAt(p)=='1'||s.charAt(p)=='2'&&s.charAt(p+1)<'7')) 
+			res+=numDecodings(p+2,s);
+        return res;
+    }
+
+*/
+
 class Solution {
     public int numDecodings(String s) {
-        int[] dp = new int[s.length()+1];
-        dp[0] = 1;
-        dp[1] = s.charAt(0)=='0'?0:1;
-        for(int i=2;i<=s.length();i++){
-            int oneDigit = Integer.valueOf(s.substring(i-1,i));
-            int twoDigits = Integer.valueOf(s.substring(i-2,i));
-            if(oneDigit>=1){
-                dp[i] = dp[i]+dp[i-1];
-            }
-            if(twoDigits>=10 && twoDigits<=26){
-                dp[i] = dp[i]+dp[i-2];
-            }
+        int n = s.length();
+        if(n==0) return 0;        
+        Integer[] mem = new Integer[n];
+        return numDecodings(0,s,mem);
+    }
+    public int numDecodings(int p, String s, Integer[] mem){
+        int n = s.length();
+        if(p==n)return 1;
+        if(s.charAt(p)=='0') return 0;
+        if(mem[p]!=null) return mem[p];
+        int result = numDecodings(p+1, s, mem);
+        if(p<n-1 && (s.charAt(p)=='1'||s.charAt(p)=='2'&&s.charAt(p+1)<'7')){
+            result+=numDecodings(p+2, s, mem);
         }
-        return dp[s.length()];
+        return mem[p]=result;
     }
 }
-
