@@ -38,43 +38,42 @@ randomSet.getRandom();
 */
 
 class RandomizedSet {
-
-    /** Initialize your data structure here. */
+    
     List<Integer> list;
     Map<Integer, Integer> map;
+    /** Initialize your data structure here. */
     public RandomizedSet() {
         list = new ArrayList<>();
-        map= new HashMap<>();
+        map = new HashMap<>();
     }
     
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     public boolean insert(int val) {
-        if(map.get(val)!=null) return false;;
-        int listSize = list.size();
+        if(map.containsKey(val))return false;
+        map.put(val,list.size());
         list.add(val);
-        map.put(val, listSize);
         return true;
     }
     
     /** Removes a value from the set. Returns true if the set contained the specified element. */
+    /*Swap the last element if the element to be swapped is not the last element*/
     public boolean remove(int val) {
-        boolean contain = map.containsKey(val);
-        if ( ! contain ) return false;
-        int loc = map.get(val);
-        if (loc < list.size() - 1 ) { // not the last one than swap the last one with this val
-            int lastone = list.get(list.size() - 1 );
-            list.set( loc , lastone );
-            map.put(lastone, loc);
+        if(!map.containsKey(val))return false;
+        int location = map.get(val);
+        if(location<list.size()-1){
+            int lastNum = list.get(list.size()-1);
+            list.set(location, lastNum);
+            map.put(lastNum, location);
         }
         map.remove(val);
-        list.remove(list.size() - 1);
+        list.remove(list.size()-1);
         return true;
     }
     
     /** Get a random element from the set. */
     public int getRandom() {
-        Random rand = new Random();
-        int index = rand.nextInt(list.size());
+        Random random = new Random();
+        int index = random.nextInt(list.size());
         return list.get(index);
     }
 }
