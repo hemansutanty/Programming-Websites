@@ -34,27 +34,32 @@ Note:
 */
 
 class DistanceComparator implements Comparator<int[]>{
-    public int compare(int[] p1, int[] p2) { 
-                if (p1[0]*p1[0]+p1[1]*p1[1] < p2[0]*p2[0]+p2[1]*p2[1]) 
-                    return 1; 
-                else if (p1[0]*p1[0]+p1[1]*p1[1] > p2[0]*p2[0]+p2[1]*p2[1]) 
-                    return -1; 
-                return 0; 
-    }
-}
-class Solution {
-    public int[][] kClosest(int[][] points, int K) {
-        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(new DistanceComparator());
-    for (int[] p : points) {
-        pq.offer(p);
-        if (pq.size() > K) {
-            pq.poll();
+    public int compare(int[] point1, int[] point2){
+        //comparision of MAx Heap by distance
+        if(point1[0]*point1[0]+point1[1]*point1[1]<point2[0]*point2[0]+point2[1]*point2[1]){
+            return 1;
+        }else if(point1[0]*point1[0]+point1[1]*point1[1]>point2[0]*point2[0]+point2[1]*point2[1]){
+            return -1;
+        }else{
+            return 0;
         }
     }
-    int[][] res = new int[K][2];
-    while (K > 0) {
-        res[--K] = pq.poll();
-    }
-    return res;
+}
+
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        //Max Heap
+        PriorityQueue<int[]> pq = new PriorityQueue<>(new DistanceComparator());
+        for(int[] point: points){
+            pq.offer(point);
+            if(pq.size()>k){
+                pq.poll();
+            }
+        }
+        int[][] result = new int[k][2];
+        while(k>0){
+            result[--k] = pq.poll();
+        }
+        return result;
     }
 }
