@@ -24,33 +24,28 @@ Note: The length of each dimension in the given grid does not exceed 50.
 
 
 class Solution {
-    private int maxArea;
-    private int[][] dirs = {{-1,0},{0,1},{1,0},{0,-1}};
     public int maxAreaOfIsland(int[][] grid) {
-        maxArea = Integer.MIN_VALUE;
+        int maxArea = Integer.MIN_VALUE;
         boolean[][] visited = new boolean[grid.length][grid[0].length];
         for(int i=0;i<grid.length;i++){
             for(int j=0;j<grid[0].length;j++){
-                if(!visited[i][j] && grid[i][j]==1){
-                    int area = dfs(grid, visited, i, j);
-                    maxArea = Math.max(maxArea, area);
-                }        
+                if(grid[i][j]==1 && !visited[i][j]){
+                    int tempMaxArea = DFS(grid,visited,i,j);
+                    maxArea = Math.max(maxArea, tempMaxArea);
+                }
             }
         }
-        return maxArea == Integer.MIN_VALUE ? 0: maxArea;
+        return maxArea;
     }
-    public int dfs(int[][] grid, boolean[][] visited, int row, int column){
-        if(row<0 || column <0 || row>=grid.length || column >= grid[0].length || grid[row][column]==0 || visited[row][column]){
+    public int DFS(int[][] grid, boolean[][] visited, int row, int col){
+        if(row<0 || col <0 || row>=grid.length || col>=grid.length){
             return 0;
-        }else{
-            visited[row][column]= true;
-            int areaOfIsland = 0;
-            for(int i=0;i<4;i++){
-                int nextX = row+dirs[i][0];
-                int nextY = column+dirs[i][1];
-                areaOfIsland+=dfs(grid, visited, nextX, nextY);
-            }
-            return 1+areaOfIsland;
         }
+        if(grid[row][col]==1 && !visited[row][col]){
+            visited[row][col] = true;
+            return 1+DFS(grid,visited,row+1,col)+DFS(grid,visited,row-1,col)+
+                DFS(grid,visited,row,col+1)+DFS(grid,visited,row,col-1);
+        }
+        return 0;
     }
 }
