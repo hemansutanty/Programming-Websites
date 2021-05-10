@@ -36,6 +36,10 @@ p and q are different and both values will exist in the binary tree.
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+ /*
+ Keep 2 global variables to find them in the tree. Set them when found and return only after finding the other value recursively
+ */
 class Solution {
     public static boolean v1, v2;
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {

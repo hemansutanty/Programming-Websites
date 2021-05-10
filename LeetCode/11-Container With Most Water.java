@@ -17,31 +17,26 @@ Input: [1,8,6,2,5,4,8,3,7]
 Output: 49
 */
 
+/*Take two pointers one at the beginning and one at the end find the min heigh among 2
+Multiply min height with the x axis distance to find area , If this area is bigger then update.
+Keep moving pointers inwards for the smaller height of the 2.
+*/
 class Solution {
     public int maxArea(int[] height) {
-        if(height==null || height.length==0) return 0;
-        int n = height.length;
-        int low=0, high=n-1;
-        int water = 0;
-        int leftMax= height[low], rightMax=height[high];
-        while(low<=high){
-            if(height[low]<height[high]){
-                if(height[low]>leftMax){
-                    leftMax=height[low];
-                }else{
-                    water= water+leftMax-height[low];
-                }
-                low++;
+        int maxArea = Integer.MIN_VALUE;
+        int i =0, j= height.length-1;
+        while (i<j){
+            int minHeight = height[i]<height[j]?height[i]:height[j];
+            if(minHeight*(j-i)>maxArea){
+                maxArea = minHeight*(j-i);
+            }
+            if(height[i]<height[j]){
+                i++;
             }else{
-                if(height[high]>rightMax){
-                    rightMax=height[high];
-                }else{
-                    water= water+rightMax-height[high];
-                }
-                high--;
+                j--;
             }
         }
-        return water;
+        return maxArea;
     }
 }
 

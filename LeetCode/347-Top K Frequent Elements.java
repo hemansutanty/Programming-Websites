@@ -22,6 +22,13 @@ It's guaranteed that the answer is unique, in other words the set of the top k f
 You can return the answer in any order.
 */
 
+/*
+we create an array of buckets Each bucket contains a list of numbers whose frequency is equal to the index in the bucket. 
+This list is created by one time traversal of the array. Then we fill in the result array by pickeing elements from the 
+end bucket.
+
+ */
+
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
